@@ -4,6 +4,7 @@ import {Tile} from "react-native-elements"
 
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
+import DishDetail from "./DishDetails"
 import {Loading} from "./Loading"
 
 const mapStateToProps = state => {
@@ -32,7 +33,7 @@ class Menu extends Component {
                 title={item.name}
                 caption={item.description}
                 featured
-                onPress={() => navigate('Dishdetail', { dishId: item.id })}
+                onPress={() => navigate('DishDetail', { dishId: item.id })}
                 imageSrc={{ uri: baseUrl + item.image}}
                 />
             );
