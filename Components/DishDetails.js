@@ -10,7 +10,7 @@ const mapStateToProps = state => {
       dishes: state.dishes,
       comments: state.comments
     }
-    console.log(dishes)
+    
   }
 
 function RendeerDish(props){

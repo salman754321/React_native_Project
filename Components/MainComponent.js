@@ -9,6 +9,9 @@ import { Icon } from 'react-native-elements';
 import { createStackNavigator , createDrawerNavigator } from 'react-navigation';
 import { connect } from 'react-redux';
 import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreater'; 
+import { SafeAreaView } from 'react-native-safe-area-view';
+
+
 
 const mapStateToProps = state => {
   return {
@@ -169,6 +172,7 @@ const MainNavigator = createDrawerNavigator({
 
 
 class Main extends Component{
+
   componentDidMount() {
     this.props.fetchDishes();
     this.props.fetchComments();
@@ -177,17 +181,20 @@ class Main extends Component{
     console.log(this.props.fetchLeaders());
   }
   
-  
-  
     render(){
+    
+      
   
         return(
 
-           <View  style={{flex:1, paddingTop: Platform.OS === 'ios' ? 0 : Expo.Constants.statusBarHeight }}>
+          <View style={{flex:1, paddingTop: Platform.OS === 'ios' ? 0 : Expo.Constants.statusBarHeight }}>
+         
                 <MainNavigator />
            </View>
+        
           
         )
+        
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
