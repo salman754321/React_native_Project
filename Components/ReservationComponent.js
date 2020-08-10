@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component ,useState} from 'react';
 import { Text, View, StyleSheet, Picker, Switch, Button, Modal,ScrollView } from 'react-native';
 
-import { Card } from 'react-native-elements';
-import DatePicker from 'react-native-datepicker'
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+
 
 class Reservation extends Component {
+   
 
     constructor(props) {
         super(props);
@@ -13,14 +14,30 @@ class Reservation extends Component {
             guests: 1,
             smoking: false,
             date: '',
-            showModal: false
+            showModal: false,
+            isDatePickerVisible:false
         }
     }
+    
+ showDatePicker = () => {
+    this.setState({isDatePickerVisible:true})
+  };
+
+   hideDatePicker = () => {
+    this.setState({isDatePickerVisible:false})
+  };
+
+   handleConfirm = (date) => {
+       console.log(date)
+       date=date.toString();
+   this.setState({date:date})
+    hideDatePicker();
+  };
 
     static navigationOptions = {
         title: 'Reserve Table',
     };
-
+    
     toggleModal() {
         this.setState({showModal: !this.state.showModal});
     }
@@ -61,34 +78,18 @@ class Reservation extends Component {
                 <Switch
                     style={styles.formItem}
                     value={this.state.smoking}
-                    onTintColor='#512DA8'
+                    trackColor='#512DA8'
                     onValueChange={(value) => this.setState({smoking: value})}>
                 </Switch>
                 </View>
                 <View style={styles.formRow}>
                 <Text style={styles.formLabel}>Date and Time</Text>
-                <DatePicker
-                    style={{flex: 2, marginRight: 20}}
-                    date={this.state.date}
-                    format=''
-                    mode="datetime"
-                    placeholder="select date and Time"
-                    minDate="2017-01-01"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                    customStyles={{
-                    dateIcon: {
-                        position: 'absolute',
-                        left: 0,
-                        top: 4,
-                        marginLeft: 0
-                    },
-                    dateInput: {
-                        marginLeft: 36
-                    }
-                    // ... You can check the source to find the other keys. 
-                    }}
-                    onDateChange={(date) => {this.setState({date: date})}}
+                <Button title="Show Date Picker" onPress={this.showDatePicker} />
+                <DateTimePickerModal
+                    isVisible={this.state.isDatePickerVisible}
+                    mode="date"
+                    onConfirm={this.handleConfirm}
+                    onCancel={this.hideDatePicker}
                 />
                 </View>
                 <View style={styles.formRow}>
