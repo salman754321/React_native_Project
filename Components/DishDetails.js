@@ -26,7 +26,12 @@ const recognizeDrag = ({ moveX, moveY, dx, dy }) => {
         return true;
     else
         return false;
+        
 }
+const recognizeCommentDrag = ({ dx }) => {
+    if (dx > 200) return true; // Left to right
+    return false;
+  };
 
 
 
@@ -40,7 +45,7 @@ const recognizeDrag = ({ moveX, moveY, dx, dy }) => {
         },
         onPanResponderEnd: (e, gestureState) => {
             console.log("pan responder end", gestureState);
-            if (recognizeDrag(gestureState))
+            if (recognizeDrag(gestureState)){
                 Alert.alert(
                     'Add Favorite',
                     'Are you sure you wish to add ' + dish.name + ' to favorite?',
@@ -50,7 +55,9 @@ const recognizeDrag = ({ moveX, moveY, dx, dy }) => {
                     ],
                     { cancelable: false }
                 );
-    
+                } else if (recognizeCommentDrag(gestureState)) {
+                    props.openCommentForm();
+                  }
             return true;
         }
     })
