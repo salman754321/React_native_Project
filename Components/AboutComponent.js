@@ -49,7 +49,7 @@ class About extends Component{
         if (this.props.leaders.isLoading) {
             return(
                 <ScrollView>
-                    <History />
+                    <OurHistory />
                     <Card
                         title='Corporate Leadership'>
                         <Loading />
